@@ -136,7 +136,6 @@ const WorkoutPlan = () => {
       })
       .catch((error) => {
         console.error(error);
-        // Handle the error
       });
   }
   return (
