@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const workoutRoutes = require('./routes/workouts');
 const userRoutes = require('./routes/user');
 const plannerRoutes = require('./routes/planner');
-
+const config = require('./common/config')
 const cors = require('cors'); // import the cors middleware
 
 // express app
@@ -27,12 +27,13 @@ app.use('/api/planner', plannerRoutes);
 
 // connect to db
 mongoose.set('strictQuery', true);
+
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(config?.mongo?.host?.uri)
   .then(() => {
     // listen for requests
-    app.listen(process.env.PORT, () => {
-      console.log('connected to db & listening on port', process.env.PORT);
+    app.listen(config.port, () => {
+      console.log('connected to db & listening on port', config.port);
     });
   })
   .catch((error) => {

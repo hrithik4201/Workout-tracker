@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
-const validator = require('validator')
+
+const {createToken , compareBcrypt} = require('../utils/password')
 
 const Schema = mongoose.Schema
 
@@ -13,33 +13,26 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  token: { 
+    type: String,
+  },
 })
+
 
 // static signup method
 userSchema.statics.signup = async function(email, password) {
 
-  // validation
-  if (!email || !password) {
-    throw Error('All fields must be filled')
-  }
-  if (!validator.isEmail(email)) {
-    throw Error('Email not valid')
-  }
-  if (!validator.isStrongPassword(password)) {
-    throw Error('Password not strong enough')
+  const existing_user = await this.findOne({ email })
+
+  if (existing_user) {
+    throw Error('Email already in use') //redirect him to login
   }
 
-  const exists = await this.findOne({ email })
+  // create a token
+  const user_token = createToken(email);
 
-  if (exists) {
-    throw Error('Email already in use')
-  }
-
-  const salt = await bcrypt.genSalt(10)
-  const hash = await bcrypt.hash(password, salt)
-
-  const user = await this.create({ email, password: hash })
+  const user = await this.create({ email, password ,token : user_token })
 
   return user
 }
@@ -47,19 +40,18 @@ userSchema.statics.signup = async function(email, password) {
 // static login method
 userSchema.statics.login = async function(email, password) {
 
-  if (!email || !password) {
-    throw Error('All fields must be filled')
-  }
-
   const user = await this.findOne({ email })
   if (!user) {
-    throw Error('Incorrect email')
+    throw Error('User not existing! Please Register')
   }
 
-  const match = await bcrypt.compare(password, user.password)
-  if (!match) {
-    throw Error('Incorrect password')
-  }
+  await compareBcrypt(password,user.password);
+
+  // create a token
+  const user_token = createToken(email);
+  user.token = user_token;
+  
+  await user.save();
 
   return user
 }
