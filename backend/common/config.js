@@ -16,6 +16,22 @@ convict.addFormat({
   },
 });
 
+convict.addFormat({
+  name: 'apiKey',
+  validate: function (val) {
+    // Implement your validation logic for the API key format
+    // For example:
+    if (!val || typeof val !== 'string') {
+      throw new Error('Invalid API key');
+    }
+  },
+  coerce: function (val) {
+    // Implement any coercion logic if needed
+    // For example, you might want to trim leading/trailing whitespace
+    return val.trim();
+  },
+});
+
 let config = convict({
   port: {
     doc: 'The PORT backend binds to',
