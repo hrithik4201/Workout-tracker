@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/useAuthContext';
 import logo from '../assets/images/Logo.png';
+import '../styles/Navbar.css';
 
 const Navbar = () => {
   const { logout } = useLogout();
@@ -14,10 +15,10 @@ const Navbar = () => {
   return (
     <header>
       <div className='container'>
-        <Link to='/' className='nav-title'>
+        <NavLink to='/' className='nav-title'>
           <img className='navbar-logo' src={logo} alt='' />
           <h1>FitLab</h1>
-        </Link>
+        </NavLink>
 
         <nav>
           {user && (
@@ -28,8 +29,8 @@ const Navbar = () => {
           )}
           {!user && (
             <div>
-              <Link to='/login'>Login</Link>
-              <Link to='/signup'>Signup</Link>
+              <NavLink to='/login'>Login</NavLink>
+              <NavLink to='/signup'>Signup</NavLink>
             </div>
           )}
         </nav>

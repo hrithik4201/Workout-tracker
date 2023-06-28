@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSignup } from '../hooks/useSignup';
+import '../styles/Signup.css';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -13,9 +14,9 @@ const Signup = () => {
   };
 
   return (
-    <div className='auth-container'>
+    <div className='signup-container'>
       <form className='signup' onSubmit={handleSubmit}>
-        <h3>Sign Up</h3>
+        <h1>Sign Up</h1>
 
         <label>Email address:</label>
         <input

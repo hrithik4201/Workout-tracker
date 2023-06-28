@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 import { useAuthContext } from '../hooks/useAuthContext';
-import { NavLink } from 'react-router-dom';
+import '../styles/Home.css';
 
 // components
 import WorkoutDetails from '../components/WorkoutDetails';
