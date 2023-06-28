@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuthContext } from './hooks/useAuthContext';
 import ExerciseDetail from './pages/ExerciseDetail';
 import ExercisesHome from './pages/ExercisesHome';

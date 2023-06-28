@@ -109,21 +109,7 @@ const WorkoutPlan = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    // Gather all the form data
-    const formData = {
-      age,
-      gender,
-      currentWeight,
-      desiredWeight,
-      height,
-      fitnessLevel,
-      primaryGoal,
-      secondaryGoal,
-      workoutType,
-      workoutFreq,
-      workoutPlace,
-      planDays,
-    };
+
     const text = `Create a personalized workout plan to help the user achieve their fitness goals. The user is a ${age}-year-old ${gender} who currently weighs ${currentWeight} kgs, stands at a height of ${height} cms, and desires to reach a weight of ${desiredWeight} kgs. Their primary fitness objective is ${primaryGoal}, and their secondary goal is ${secondaryGoal}. They prefer to focus on ${workoutType} workouts and has ${fitnessLevel} level of fitness. The ideal workout schedule for them is ${workoutFreq} times a week at ${workoutPlace}.Please provide a detailed workout plan for ${planDays} days, including suggested exercises, reps, and sets. Format your response using HTML. Use headings, subheadings, bullet points, and bold to organize the information. Do not display user information in the response.`;
 
     const user = JSON.parse(localStorage.getItem('user'));
