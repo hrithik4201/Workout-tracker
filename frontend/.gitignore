@@ -5,3 +5,5 @@
 /build
 # testing
 /coverage
+
+.env

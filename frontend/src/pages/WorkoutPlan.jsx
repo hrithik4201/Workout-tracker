@@ -15,6 +15,7 @@ import cardio from '../assets/icons/cardio.png';
 import HIIT from '../assets/icons/HIIT.png';
 import yoga from '../assets/icons/yoga.png';
 import hike from '../assets/icons/hike.png';
+import '../styles/WorkoutPlan.css';
 
 const WorkoutPlan = () => {
   const [age, setAge] = useState('');
