@@ -44,7 +44,7 @@ let config = convict({
   },
   gptKey: {
     doc: 'Chat GPT API Key',
-    format: 'api-key',
+    format: 'apiKey',
     default: '',
     env: 'apiKey',
     arg: 'apiKey',
