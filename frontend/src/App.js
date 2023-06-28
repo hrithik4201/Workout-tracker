@@ -1,5 +1,4 @@
 import { BrowserRouter } from 'react-router-dom';
-import { useAuthContext } from './hooks/useAuthContext';
 
 import RoutesConfig from './routes';
 
