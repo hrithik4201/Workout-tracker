@@ -115,7 +115,11 @@ const WorkoutPlan = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const headers = { Authorization: `Bearer ${user.token}` };
     axios
-      .post('/api/planner/workout-plan', { text }, { headers })
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/planner/workout-plan`,
+        { text },
+        { headers }
+      )
       .then((response) => {
         console.log(response.data.text);
         const workoutPlan = document.querySelector('.workout-plan');

@@ -14,12 +14,13 @@ export const useWorkoutPlan = () => {
     try {
       const headers = { Authorization: `Bearer ${user.token}` };
       const response = await axios.post(
-        '/api/planner/workout-plan',
+        `${process.env.REACT_APP_BACKEND_URL}/api/planner/workout-plan`,
         { text },
         {
           headers,
         }
       );
+
       return response.data.text;
     } catch (error) {
       setError(error.response.data.error);
