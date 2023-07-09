@@ -18,9 +18,8 @@ const ExerciseDetail = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const fetchExercisesData = async () => {
-      const exerciseDbUrl = 'https://exercisedb.p.rapidapi.com';
-      const youtubeSearchUrl =
-        'https://youtube-search-and-download.p.rapidapi.com';
+      const exerciseDbUrl = process.env.REACT_APP_EXERCISE_API_URL;
+      const youtubeSearchUrl = process.env.REACT_APP_YOUTUBE_API_URL;
 
       const exerciseDetailData = await fetchData(
         `${exerciseDbUrl}/exercises/exercise/${id}`,
