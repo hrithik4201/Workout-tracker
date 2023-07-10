@@ -116,9 +116,12 @@ const WorkoutPlan = () => {
     const headers = { Authorization: `Bearer ${user.token}` };
 
     // Get the submit button element
-    const submitButton = document.querySelector('.submit-btn');
+    const submitButton = document.querySelector('.submit-button');
 
     submitButton.addEventListener('click', () => {
+      // Disable the submit button
+      submitButton.disabled = true;
+
       // Display loading indicator
       const loadingIndicator = document.querySelector('.loading-indicator');
       loadingIndicator.style.display = 'block';
@@ -136,15 +139,25 @@ const WorkoutPlan = () => {
 
           // Hide loading indicator
           loadingIndicator.style.display = 'none';
+
+          // Enable the submit button
+          submitButton.disabled = false;
         })
         .catch((error) => {
           console.error(error);
 
           // Hide loading indicator
           loadingIndicator.style.display = 'none';
+
+          // Enable the submit button
+          submitButton.disabled = false;
         });
     });
   }
+  // Hide loading indicator initially
+  const loadingIndicator = document.querySelector('.loading-indicator');
+  loadingIndicator.style.display = 'none';
+
   return (
     <div>
       <form action='' onSubmit={handleSubmit}>
