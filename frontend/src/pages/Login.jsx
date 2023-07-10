@@ -59,6 +59,11 @@ const Login = () => {
 
         <button disabled={isLoading}>Log in</button>
         {error && <div className='error'>{error}</div>}
+        <div>
+          <p>Test Credentials:</p>
+          <p>Email: joe@gmail.com</p>
+          <p>Password: Qwerty12345!</p>
+        </div>
       </form>
     </div>
   );
