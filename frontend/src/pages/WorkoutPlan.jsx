@@ -30,6 +30,7 @@ const WorkoutPlan = () => {
   const [workoutFreq, setWorkoutFreq] = useState('');
   const [workoutPlace, setWorkoutPlace] = useState('');
   const [planDays, setPlanDays] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const workoutOptions = [
     { value: 'any', label: 'Any', image: `${any}` },
@@ -115,48 +116,27 @@ const WorkoutPlan = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const headers = { Authorization: `Bearer ${user.token}` };
 
-    // Get the submit button element
-    const submitButton = document.querySelector('.submit-btn');
+    setLoading(true); // Display the loading indicator
 
-    submitButton.addEventListener('click', () => {
-      // Disable the submit button
-      submitButton.disabled = true;
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/planner/workout-plan`,
+        { text },
+        { headers }
+      )
+      .then((response) => {
+        console.log(response.data.text);
+        const workoutPlan = document.querySelector('.workout-plan');
+        workoutPlan.innerHTML = response.data.text;
 
-      // Display loading indicator
-      const loadingIndicator = document.querySelector('.loading-indicator');
-      loadingIndicator.style.display = 'block';
+        setLoading(false); // Hide the loading indicator
+      })
+      .catch((error) => {
+        console.error(error);
 
-      axios
-        .post(
-          `${process.env.REACT_APP_BACKEND_URL}/api/planner/workout-plan`,
-          { text },
-          { headers }
-        )
-        .then((response) => {
-          console.log(response.data.text);
-          const workoutPlan = document.querySelector('.workout-plan');
-          workoutPlan.innerHTML = response.data.text;
-
-          // Hide loading indicator
-          loadingIndicator.style.display = 'none';
-
-          // Enable the submit button
-          submitButton.disabled = false;
-        })
-        .catch((error) => {
-          console.error(error);
-
-          // Hide loading indicator
-          loadingIndicator.style.display = 'none';
-
-          // Enable the submit button
-          submitButton.disabled = false;
-        });
-    });
+        setLoading(false); // Hide the loading indicator
+      });
   }
-  // Hide loading indicator initially
-  const loadingIndicator = document.querySelector('.loading-indicator');
-  loadingIndicator.style.display = 'none';
 
   return (
     <div>
@@ -432,7 +412,7 @@ const WorkoutPlan = () => {
         </div>
         <input className='submit-btn' type='submit' />
       </form>
-      <p className='loading-indicator'>Loading...</p>
+      {loading && <p className='loading-indicator'>Loading...</p>}
 
       <div className='workout-plan'></div>
     </div>
