@@ -38,6 +38,7 @@
   background-color: rgb(255, 38, 37);
   color: white;
   font-size: 20px;
+  cursor: pointer;
 }
 
 #fifth-row .MuiToggleButton-root {
