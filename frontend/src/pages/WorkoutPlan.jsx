@@ -115,30 +115,35 @@ const WorkoutPlan = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const headers = { Authorization: `Bearer ${user.token}` };
 
-    // Display loading indicator
-    const loadingIndicator = document.querySelector('.loading-indicator');
-    loadingIndicator.style.display = 'block';
+    // Get the submit button element
+    const submitButton = document.querySelector('.submit-btn');
 
-    axios
-      .post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/planner/workout-plan`,
-        { text },
-        { headers }
-      )
-      .then((response) => {
-        console.log(response.data.text);
-        const workoutPlan = document.querySelector('.workout-plan');
-        workoutPlan.innerHTML = response.data.text;
+    submitButton.addEventListener('click', () => {
+      // Display loading indicator
+      const loadingIndicator = document.querySelector('.loading-indicator');
+      loadingIndicator.style.display = 'block';
 
-        // Hide loading indicator
-        loadingIndicator.style.display = 'none';
-      })
-      .catch((error) => {
-        console.error(error);
+      axios
+        .post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/planner/workout-plan`,
+          { text },
+          { headers }
+        )
+        .then((response) => {
+          console.log(response.data.text);
+          const workoutPlan = document.querySelector('.workout-plan');
+          workoutPlan.innerHTML = response.data.text;
 
-        // Hide loading indicator
-        loadingIndicator.style.display = 'none';
-      });
+          // Hide loading indicator
+          loadingIndicator.style.display = 'none';
+        })
+        .catch((error) => {
+          console.error(error);
+
+          // Hide loading indicator
+          loadingIndicator.style.display = 'none';
+        });
+    });
   }
   return (
     <div>
