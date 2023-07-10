@@ -116,7 +116,7 @@ const WorkoutPlan = () => {
     const headers = { Authorization: `Bearer ${user.token}` };
 
     // Get the submit button element
-    const submitButton = document.querySelector('.submit-button');
+    const submitButton = document.querySelector('.submit-btn');
 
     submitButton.addEventListener('click', () => {
       // Disable the submit button
