@@ -114,6 +114,11 @@ const WorkoutPlan = () => {
 
     const user = JSON.parse(localStorage.getItem('user'));
     const headers = { Authorization: `Bearer ${user.token}` };
+
+    // Display loading indicator
+    const loadingIndicator = document.querySelector('.loading-indicator');
+    loadingIndicator.style.display = 'block';
+
     axios
       .post(
         `${process.env.REACT_APP_BACKEND_URL}/api/planner/workout-plan`,
@@ -124,9 +129,15 @@ const WorkoutPlan = () => {
         console.log(response.data.text);
         const workoutPlan = document.querySelector('.workout-plan');
         workoutPlan.innerHTML = response.data.text;
+
+        // Hide loading indicator
+        loadingIndicator.style.display = 'none';
       })
       .catch((error) => {
         console.error(error);
+
+        // Hide loading indicator
+        loadingIndicator.style.display = 'none';
       });
   }
   return (
@@ -403,6 +414,7 @@ const WorkoutPlan = () => {
         </div>
         <input className='submit-btn' type='submit' />
       </form>
+      <p className='loading-indicator'>Loading...</p>
 
       <div className='workout-plan'></div>
     </div>
